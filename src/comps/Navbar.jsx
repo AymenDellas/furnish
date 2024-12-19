@@ -85,7 +85,7 @@ const Navbar = ({ cart, setCart }) => {
         {/*small screen sidebar*/}
 
         <div
-          className={`w-[70%] h-screen fixed top-0 right-0 bg-accentHighlight  rounded-l-xl shadow-2xl text-themeAccent z-50 transition-all 
+          className={`w-[70%] h-screen fixed top-0 right-0 bg-accentHighlight  rounded-l-xl shadow-2xl text-themeAccent z-50 transition-all
              ${isSidebarOpen ? "translate-x-0" : "translate-x-full"} `}
         >
           <img

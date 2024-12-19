@@ -33,7 +33,7 @@ const Home = ({ addToCart }) => {
     <>
       <ToastContainer />
       <div className="bg-accentHighlight/30">
-        <div className="min-h-1/2 bg-themeAccent text-textColor z-0 ">
+        <div className="min-h-1/2 bg-themeAccent text-textColor z-10 ">
           <div className="flex flex-col lg:flex-row lg:justify-between min-h-1/2 lg:ml-12 2xl:ml-36 items-center pt-8 lg:pt-0 ">
             {/* Added a background div that covers 40% of the width */}
             {/* <div className="xl:absolute xl:top-0 xl:right-0 xl:h-full xl:w-[40%] xl:bg-accentHighlight xl:z-0"></div> */}
