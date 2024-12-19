@@ -118,6 +118,17 @@ const Home = ({ addToCart }) => {
             );
           })}
         </div>
+        <div className="flex  flex-col justifiy-center items-center mt-32 min-h-screen mb-4">
+          <h1 className="font-bold text-4xl">Stay Updated</h1>
+          <p>
+            Subscribe to our newsletter for exclusive offers and interior design
+            tips.
+          </p>
+          <form action="">
+            <input type="email" placeholder="Enter your email." />
+            <button>Subscribe</button>
+          </form>
+        </div>
       </div>
     </>
   );
