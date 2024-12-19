@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "luxury";
+  src: url("/src/assets/Sarasvati-9Y4w5.ttf") format("truetype"),
+    url("/src/assets/Sarasvati-9Y4w5.ttf") format("truetype"); /* Use 'truetype' as the format */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "poppins";
+  src: url("/src/assets/PoppinsMedium-1JPv.otf") format("truetype"),
+    url("/src/assets/PoppinsMedium-1JPv.otf") format("truetype"); /* Use 'truetype' as the format */
+  font-weight: normal;
+  font-style: normal;
+}
