@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Products = ({ setCart, addToCart }) => {
   const featured = [
     {
+      id: 1,
       title: "Modern Linen Sofa",
       imageUrl: "/src/assets/cosy-sofa.png",
       price: "899.00",
@@ -12,6 +14,7 @@ const Products = ({ setCart, addToCart }) => {
       rating: "(4.8)",
     },
     {
+      id: 2,
       title: "Luxury Accent Chair",
       imageUrl: "/src/assets/accent-chair.png",
       price: "499.00",
@@ -20,6 +23,7 @@ const Products = ({ setCart, addToCart }) => {
       rating: "(4.6)",
     },
     {
+      id: 3,
       title: "Minimalist Round Mirror",
       imageUrl: "/src/assets/mirror.png",
       price: "199.00",
@@ -28,6 +32,7 @@ const Products = ({ setCart, addToCart }) => {
       rating: "(4.7)",
     },
     {
+      id: 4,
       title: "Modern Linen Sofa",
       imageUrl: "/src/assets/cosy-sofa.png",
       price: "2199.00",
@@ -36,6 +41,7 @@ const Products = ({ setCart, addToCart }) => {
       rating: "(4.8)",
     },
     {
+      id: 5,
       title: "Luxury Accent Chair",
       imageUrl: "/src/assets/accent-chair.png",
       price: "299.00",
@@ -44,6 +50,7 @@ const Products = ({ setCart, addToCart }) => {
       rating: "(4.6)",
     },
     {
+      id: 6,
       title: "Minimalist Round Mirror",
       imageUrl: "/src/assets/mirror.png",
       price: "350.00",
@@ -52,6 +59,7 @@ const Products = ({ setCart, addToCart }) => {
       rating: "(4.7)",
     },
     {
+      id: 7,
       title: "Modern Linen Sofa",
       imageUrl: "/src/assets/cosy-sofa.png",
       price: "750.00",
@@ -60,6 +68,7 @@ const Products = ({ setCart, addToCart }) => {
       rating: "(4.8)",
     },
     {
+      id: 8,
       title: "Luxury Accent Chair",
       imageUrl: "/src/assets/accent-chair.png",
       price: "699.00",
@@ -68,6 +77,7 @@ const Products = ({ setCart, addToCart }) => {
       rating: "(4.6)",
     },
     {
+      id: 9,
       title: "Minimalist Round Mirror",
       imageUrl: "/src/assets/mirror.png",
       price: "99.99",
@@ -111,31 +121,33 @@ const Products = ({ setCart, addToCart }) => {
               <>
                 <div className="flex flex-col items-center mb-8 justify-center px-8 group">
                   <div className=" ">
-                    <div
-                      className="bg-cover bg-center w-36 h-36 lg:w-[250px] lg:h-[250px] border relative  rounded-md border-textColor shadow-2xl hover:scale-[1.01] transition-transform"
-                      style={{
-                        backgroundImage: `url(${feature.imageUrl})`,
-                      }}
-                    >
-                      {feature.isBestSeller ? (
-                        <div className="absolute top-2 right-2 bg-textColor/70 px-3 py-1 rounded-lg text-accentHighlight">
-                          Best Seller
-                        </div>
-                      ) : (
-                        ""
-                      )}
+                    <Link to={`/products/${feature.id}`}>
                       <div
-                        onClick={() => {
-                          addToCart(feature);
-                          toast.success(
-                            "The product has been added successfuly"
-                          );
+                        className="bg-cover bg-center w-36 h-36 lg:w-[250px] lg:h-[250px] border relative  rounded-md border-textColor shadow-2xl hover:scale-[1.01] transition-transform"
+                        style={{
+                          backgroundImage: `url(${feature.imageUrl})`,
                         }}
-                        className="cursor-pointer hover:bg-textColor/50 w-fit m-2 rounded-full bg-textColor/10 p-2 transition-all opacity-0 group-hover:opacity-100"
                       >
-                        <img src="/cart.svg " alt="" className="" />
+                        {feature.isBestSeller ? (
+                          <div className="absolute top-2 right-2 bg-textColor/70 px-3 py-1 rounded-lg text-accentHighlight">
+                            Best Seller
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                        <div
+                          onClick={() => {
+                            addToCart(feature);
+                            toast.success(
+                              "The product has been added successfuly"
+                            );
+                          }}
+                          className="cursor-pointer hover:bg-textColor/50 w-fit m-2 rounded-full bg-textColor/10 p-2 transition-all opacity-0 group-hover:opacity-100"
+                        >
+                          <img src="/cart.svg " alt="" className="" />
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                     <p className="my-2 text-textColor/40 underline">
                       {feature.type}
                     </p>

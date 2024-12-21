@@ -29,7 +29,7 @@ const Navbar = ({ cart, setCart }) => {
                   Home
                 </li>
               </Link>
-              <Link to={"/products"} onClick={() => console.log(cart)}>
+              <Link to={"/products"}>
                 <li className="p-2 mx-2 transition-all hover:bg-white/30 rounded-lg">
                   Products
                 </li>
@@ -59,30 +59,42 @@ const Navbar = ({ cart, setCart }) => {
           </div>
           {cart.map((product) => {
             return (
-              <div className="flex  mt-16 ">
+              <div className="flex mt-16 relative" key={product.id}>
                 <div
                   style={{ backgroundImage: `url(${product.imageUrl})` }}
-                  className="mx-8 w-32 h-32 bg-cover bg-center rounded-lg shadow-xl "
+                  className="mx-8 w-32 h-32 bg-cover bg-center rounded-lg shadow-xl"
                 ></div>
                 <div>
                   <h1>{product.title}</h1>
                   <h1>{product.price}</h1>
+                  <img
+                    onClick={() =>
+                      setCart(cart.filter((item) => item.id !== product.id))
+                    }
+                    src="/delete.svg"
+                    alt="Delete Item"
+                    className="absolute right-10 bottom-0 cursor-pointer"
+                  />
                 </div>
               </div>
             );
           })}
-          <div className="flex justify-around items-end min-h-screen pb-[40%] p-4 xl:pb-4">
-            <div className="border border-textColor rounded-lg bg-textColor/10 hover:bg-textColor/20 transition-all w-1/2 flex justify-center mx-4 p-2 cursor-pointer">
-              <img
-                src="/delete.svg"
-                alt="Clear Cart"
+
+          {cart.length > 0 ? (
+            <div className="flex justify-around items-end mt-8 p-4 xl:pb-4">
+              <div
                 onClick={() => setCart([])}
-              />
+                className="border border-textColor rounded-lg bg-textColor/10 hover:bg-textColor/20 transition-all w-1/2 flex justify-center mx-4 p-2 cursor-pointer"
+              >
+                <img src="/delete.svg" alt="Clear Cart" />
+              </div>
+              <div className="border border-textColor rounded-lg bg-textColor/10 hover:bg-textColor/20 transition-all w-1/2 flex justify-center mx-4 p-2 cursor-pointer">
+                Checkout
+              </div>
             </div>
-            <div className="border border-textColor rounded-lg bg-textColor/10 hover:bg-textColor/20 transition-all w-1/2 flex justify-center mx-4 p-2 cursor-pointer">
-              Checkout
-            </div>
-          </div>
+          ) : (
+            ""
+          )}
         </div>
         {/*small screen sidebar*/}
 
