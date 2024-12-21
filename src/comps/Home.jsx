@@ -52,7 +52,7 @@ const Home = ({ addToCart }) => {
               </button>
             </div>
             <div
-              className="sofa w-full lg:w-[1400px] relative z-10  h-96 bg-accentHighlight  mt-4 lg:mt-0 bg-cover bg-center py-80"
+              className="sofa w-full lg:w-[1400px] relative z-10  h-96 bg-accentHighlight mt-4 lg:mt-0 bg-cover bg-center py-80"
               style={{ backgroundImage: `url("/armchar.png")` }}
             ></div>
           </div>
@@ -120,13 +120,23 @@ const Home = ({ addToCart }) => {
         </div>
         <div className="flex  flex-col justifiy-center items-center mt-32 min-h-screen mb-4">
           <h1 className="font-bold text-4xl">Stay Updated</h1>
-          <p>
+          <p className="m-8">
             Subscribe to our newsletter for exclusive offers and interior design
             tips.
           </p>
-          <form action="">
-            <input type="email" placeholder="Enter your email." />
-            <button>Subscribe</button>
+          <form action="" className="flex justify-center">
+            <input
+              type="email"
+              placeholder="Enter your email."
+              className="rounded-l-lg p-4 w-1/2 lg:w-fit  outline-none border focus:border-themeAccent shadow-xl border-textColor"
+              required
+            />
+            <button
+              type="button"
+              className="rounded-r-lg text center bg-textColor py-4 px-2 text-accentHighlight hover:bg-textColor/90 transition-all"
+            >
+              Subscribe
+            </button>
           </form>
         </div>
       </div>

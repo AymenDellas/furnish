@@ -22,7 +22,10 @@ const App = () => {
       <Route path="" element={<NavLayout cart={cart} setCart={setCart} />}>
         <Route path="/" element={<Home addToCart={addToCart} />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
-        <Route path="/products" element={<Products />}></Route>
+        <Route
+          path="/products"
+          element={<Products addToCart={addToCart} setCart={setCart} />}
+        ></Route>
       </Route>
     )
   );

@@ -17,7 +17,9 @@ const Navbar = ({ cart, setCart }) => {
         <div className=" justify-between mx-4 lg:mx-16 items-center hidden lg:flex ">
           <div className="items-center ">
             <Link to={"/"}>
-              <h1 className="font-bold text-xl">BrandName</h1>
+              <h1 className="font-extrabold text-3xl font-luxury">
+                FurniSpace
+              </h1>
             </Link>
           </div>
           <div className="">
@@ -38,7 +40,7 @@ const Navbar = ({ cart, setCart }) => {
             className="p-2 transition-all hover:bg-white/30 rounded-lg cursor-pointer"
             onClick={() => setIsCartopen(true)}
           >
-            <img src="/public/cart.svg" alt="Shopping Cart" />
+            <img src="/cart.svg" alt="Shopping Cart" />
           </div>
         </div>
         <div
@@ -90,7 +92,7 @@ const Navbar = ({ cart, setCart }) => {
         >
           <img
             onClick={() => setIsSidebarOpen(false)}
-            src="/public/close.svg"
+            src="/close.svg"
             alt=""
             className="cursor-pointer absolute top-7 left-8"
           />
@@ -116,9 +118,9 @@ const Navbar = ({ cart, setCart }) => {
         </div>
 
         <div className="relative flex lg:hidden justify-between cursor-pointer items-center  ">
-          <h1 className="font-bold text-lg ">BrandName</h1>
+          <h1 className="font-bold text-2xl font-luxury ">FurniSpace</h1>
           <img
-            src="/public/menu (2).svg "
+            src="/menu (2).svg "
             alt=""
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className="hover:bg-white/30 rounded-lg p-2"
