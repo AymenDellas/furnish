@@ -9,10 +9,13 @@ const Navbar = ({ cart, setCart }) => {
     setIsSidebarOpen(false);
     setIsCartopen(true);
   };
-
+  const totalPrice = cart.reduce(
+    (acc, product) => acc + product.price * product.count,
+    0
+  );
   return (
     <>
-      <div className=" bg-themeAccent p-4 text-textColor border-accentHighlight drop-shadow-xl border-b-2 z-50 relative ">
+      <div className=" bg-themeAccent  p-4 text-textColor border-accentHighlight drop-shadow-xl border-b-2 z-50 relative ">
         {/* large screens navbar */}
         <div className=" justify-between mx-4 lg:mx-16 items-center hidden lg:flex ">
           <div className="items-center ">
@@ -44,8 +47,8 @@ const Navbar = ({ cart, setCart }) => {
           </div>
         </div>
         <div
-          className={`fixed w-[70%] xl:w-[20%] min-h-screen bg-accentHighlight top-0 right-0 rounded-lg z-50 transition-all ${
-            isCartopen ? "translate-x-0" : "translate-x-full"
+          className={`fixed w-full lg:w-[50%] xl:w-[30%] min-h-screen bg-accentHighlight top-0 right-0 rounded-lg z-50 transition-all ${
+            isCartopen ? "block" : "hidden"
           }`}
         >
           <div
@@ -58,6 +61,7 @@ const Navbar = ({ cart, setCart }) => {
             {cart.length === 0 ? "cart is empty" : ""}
           </div>
           {cart.map((product) => {
+            const singleTotal = product.price * product.count;
             return (
               <div className="flex mt-16 relative" key={product.id}>
                 <div
@@ -65,8 +69,9 @@ const Navbar = ({ cart, setCart }) => {
                   className="mx-8 w-32 h-32 bg-cover bg-center rounded-lg shadow-xl"
                 ></div>
                 <div>
-                  <h1>{product.title}</h1>
-                  <h1>{product.price}</h1>
+                  <h1 className="my-2 font-bold">{product.name}</h1>
+                  <h1 className="my-2">Price : {singleTotal}$</h1>
+                  <h1 className="my-2">Count :{product.count}</h1>
                   <img
                     onClick={() =>
                       setCart(cart.filter((item) => item.id !== product.id))
@@ -76,21 +81,26 @@ const Navbar = ({ cart, setCart }) => {
                     className="absolute right-10 bottom-0 cursor-pointer"
                   />
                 </div>
+                ;
               </div>
             );
           })}
-
           {cart.length > 0 ? (
-            <div className="flex justify-around items-end mt-8 p-4 xl:pb-4">
-              <div
-                onClick={() => setCart([])}
-                className="border border-textColor rounded-lg bg-textColor/10 hover:bg-textColor/20 transition-all w-1/2 flex justify-center mx-4 p-2 cursor-pointer"
-              >
-                <img src="/delete.svg" alt="Clear Cart" />
+            <div>
+              <div className="flex justify-around items-end mt-8 p-4 xl:pb-4">
+                <div
+                  onClick={() => setCart([])}
+                  className="border border-textColor rounded-lg bg-textColor/10 hover:bg-textColor/20 transition-all w-1/2 flex justify-center mx-4 p-2 cursor-pointer"
+                >
+                  <img src="/delete.svg" alt="Clear Cart" />
+                </div>
+                <div className="border border-textColor rounded-lg bg-textColor/10 hover:bg-textColor/20 transition-all w-1/2 flex justify-center mx-4 p-2 cursor-pointer">
+                  Checkout
+                </div>
               </div>
-              <div className="border border-textColor rounded-lg bg-textColor/10 hover:bg-textColor/20 transition-all w-1/2 flex justify-center mx-4 p-2 cursor-pointer">
-                Checkout
-              </div>
+              <h1 className="text-center font-bold my-4 text-xl">
+                Total price : {totalPrice}$
+              </h1>
             </div>
           ) : (
             ""
@@ -100,7 +110,7 @@ const Navbar = ({ cart, setCart }) => {
 
         <div
           className={`w-[70%] h-screen fixed top-0 right-0 bg-accentHighlight  rounded-l-xl shadow-2xl text-themeAccent z-50 transition-all
-             ${isSidebarOpen ? "translate-x-0" : "translate-x-full"} `}
+             ${isSidebarOpen ? "block" : "hidden"} `}
         >
           <img
             onClick={() => setIsSidebarOpen(false)}

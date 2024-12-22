@@ -1,33 +1,28 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useEffect } from "react";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
-const Home = ({ addToCart }) => {
-  const featured = [
-    {
-      title: "Modern Linen Sofa",
-      imageUrl: "/src/assets/cosy-sofa.png",
-      price: "$899.00",
-      isBestSeller: false,
-      type: "Living Room", // Functional type
-      rating: "(4.8)",
-    },
-    {
-      title: "Luxury Accent Chair",
-      imageUrl: "/src/assets/accent-chair.png",
-      price: "$499.00",
-      isBestSeller: false,
-      type: "Seating", // Functional type
-      rating: "(4.6)",
-    },
-    {
-      title: "Minimalist Round Mirror",
-      imageUrl: "/src/assets/mirror.png",
-      price: "$199.00",
-      isBestSeller: true,
-      type: "Decor", // Functional type
-      rating: "(4.7)",
-    },
-  ];
+const Home = ({ addToCart, db }) => {
+  const [featured, setFeatured] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const colRef = collection(db, "featured");
+        const response = await getDocs(colRef);
+        const productsData = response.docs.map((doc) => ({
+          id: doc.id, // Include the document ID
+          ...doc.data(),
+        }));
+        setFeatured(productsData);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <>
@@ -35,9 +30,6 @@ const Home = ({ addToCart }) => {
       <div className="bg-accentHighlight/30">
         <div className="min-h-1/2 bg-themeAccent text-textColor z-10 ">
           <div className="flex flex-col lg:flex-row lg:justify-between min-h-1/2 lg:ml-12 2xl:ml-36 items-center pt-8 lg:pt-0 ">
-            {/* Added a background div that covers 40% of the width */}
-            {/* <div className="xl:absolute xl:top-0 xl:right-0 xl:h-full xl:w-[40%] xl:bg-accentHighlight xl:z-0"></div> */}
-
             <div className="z-10 ml-4 ">
               <h1 className="font-luxury font-bold text-4xl lg:text-7xl mb-4 py-4 bg-gradient-to-r from-textColor via-buttonBackground to-accentHighlight bg-clip-text text-transparent  ">
                 Furnish Your Style
@@ -62,10 +54,11 @@ const Home = ({ addToCart }) => {
             Featured
           </h1>
         </div>
-        <div className="absolute w-[40%] h-[90%] blur-3xl rounded-full bg-themeAccent/20 mt-[15%] left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-        ;
+        <div className="absolute w-screen h-screen blur-3xl rounded-full bg-themeAccent/20 mt-[15%] left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 mx-[10%] relative ">
           {featured.map((feature) => {
+            let count = 1;
             return (
               <>
                 <div className="flex flex-col items-center mb-8 justify-center group">
@@ -83,10 +76,7 @@ const Home = ({ addToCart }) => {
                       )}
                       <div
                         onClick={() => {
-                          addToCart(feature);
-                          toast.success(
-                            "The product has been added successfuly"
-                          );
+                          addToCart(feature, count);
                         }}
                         className="cursor-pointer hover:bg-textColor/50 w-fit m-2 rounded-full bg-textColor/10 p-2 transition-all opacity-0 group-hover:opacity-100"
                       >
@@ -97,9 +87,10 @@ const Home = ({ addToCart }) => {
                       {feature.type}
                     </p>
                     <div className="flex justify-between items-center my-2 text-textColor">
-                      <h1 className=" font-bold ">{feature.title}</h1>
+                      <h1 className=" font-bold ">{feature.name}</h1>
                       <h3>{feature.price}</h3>
                     </div>
+
                     <div className="flex items-center">
                       <div className="flex space-x-1">
                         <img src="/src/assets/star.svg" alt="Star" />
@@ -118,9 +109,8 @@ const Home = ({ addToCart }) => {
             );
           })}
         </div>
-        <div className="flex  flex-col justifiy-center items-center mt-32 min-h-screen mb-4">
-          <h1 className="font-bold text-4xl">Stay Updated</h1>
-          <p className="m-8">
+        <div className="flex  flex-col justifiy-center items-center mt-32 min-h-screen mb-4 ">
+          <p className="m-8 ">
             Subscribe to our newsletter for exclusive offers and interior design
             tips.
           </p>
