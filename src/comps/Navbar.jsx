@@ -13,6 +13,7 @@ const Navbar = ({ cart, setCart }) => {
     (acc, product) => acc + product.price * product.count,
     0
   );
+
   return (
     <>
       <div className=" bg-themeAccent  p-4 text-textColor border-accentHighlight drop-shadow-xl border-b-2 z-50 relative ">
@@ -94,9 +95,12 @@ const Navbar = ({ cart, setCart }) => {
                 >
                   <img src="/delete.svg" alt="Clear Cart" />
                 </div>
-                <div className="border border-textColor rounded-lg bg-textColor/10 hover:bg-textColor/20 transition-all w-1/2 flex justify-center mx-4 p-2 cursor-pointer">
+                <Link
+                  to={"/checkout"}
+                  className="border border-textColor rounded-lg bg-textColor/10 hover:bg-textColor/20 transition-all w-1/2 flex justify-center mx-4 p-2 cursor-pointer"
+                >
                   Checkout
-                </div>
+                </Link>
               </div>
               <h1 className="text-center font-bold my-4 text-xl">
                 Total price : {totalPrice}$

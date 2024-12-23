@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { useEffect } from "react";
+import Checkout from "./comps/Checkout";
 
 import {
   createBrowserRouter,
@@ -33,6 +34,10 @@ const db = getFirestore(app);
 const App = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [cart, setCart] = useState(() => {
+    const updatedStorage = localStorage.getItem("data");
+    return updatedStorage ? JSON.parse(updatedStorage) : [];
+  });
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -51,12 +56,9 @@ const App = () => {
     };
 
     fetchProducts();
-    const updatedStorage = JSON.parse(localStorage.getItem("data"));
-    setCart(updatedStorage);
   }, []);
 
   const { id } = useParams();
-  const [cart, setCart] = useState([]);
   const addToCart = (product, count) => {
     try {
       let updatedCart;
@@ -69,12 +71,16 @@ const App = () => {
         updatedCart = [...cart, { ...product, count }];
       }
       setCart(updatedCart);
-      localStorage.setItem("data", JSON.stringify(updatedCart));
+
       toast.success("Product has been added successfully!");
     } catch (error) {
       toast.error("Failed to add the product to the cart. Please try again.");
     }
   };
+  useEffect(() => {
+    // Update localStorage whenever the cart changes
+    localStorage.setItem("data", JSON.stringify(cart));
+  }, [cart]);
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="" element={<NavLayout cart={cart} setCart={setCart} />}>
@@ -104,6 +110,7 @@ const App = () => {
             />
           }
         ></Route>
+        <Route path="/checkout" element={<Checkout cart={cart} />}></Route>
       </Route>
     )
   );

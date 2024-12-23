@@ -55,7 +55,6 @@ const Home = ({ addToCart, db, isLoading }) => {
           </h1>
         </div>
         <div className="absolute w-screen h-screen blur-3xl rounded-full bg-themeAccent/20 mt-[15%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-10"></div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 mx-[10%] relative ">
           {featured.map((feature) => {
             let count = 1;
@@ -120,7 +119,7 @@ const Home = ({ addToCart, db, isLoading }) => {
             );
           })}
         </div>
-        <div className="flex  flex-col justifiy-center items-center mt-32 min-h-screen mb-4 z-0">
+        <div className="flex  flex-col justifiy-center items-center mt-32  mb-4 z-0">
           <h1 className="text-4xl font-bold">Stay Updated</h1>
           <p className="m-8 ">
             Subscribe to our newsletter for exclusive offers and interior design
@@ -141,7 +140,9 @@ const Home = ({ addToCart, db, isLoading }) => {
             </button>
           </form>
         </div>
+        ;
       </div>
+      <footer className="bg-textColor w-full h-48"></footer>
     </>
   );
 };
