@@ -32,6 +32,7 @@ const db = getFirestore(app);
 
 const App = () => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -43,26 +44,32 @@ const App = () => {
           ...doc.data(),
         }));
         setProducts(productsData);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
 
     fetchProducts();
+    const updatedStorage = JSON.parse(localStorage.getItem("data"));
+    setCart(updatedStorage);
   }, []);
+
   const { id } = useParams();
   const [cart, setCart] = useState([]);
   const addToCart = (product, count) => {
     try {
+      let updatedCart;
       const existingProduct = cart.find((item) => item.id === product.id);
       if (existingProduct) {
-        const updatedCart = cart.map((item) =>
+        updatedCart = cart.map((item) =>
           item.id === product.id ? { ...item, count: item.count + count } : item
         );
-        setCart(updatedCart);
       } else {
-        setCart([...cart, { ...product, count }]);
+        updatedCart = [...cart, { ...product, count }];
       }
+      setCart(updatedCart);
+      localStorage.setItem("data", JSON.stringify(updatedCart));
       toast.success("Product has been added successfully!");
     } catch (error) {
       toast.error("Failed to add the product to the cart. Please try again.");
@@ -79,6 +86,7 @@ const App = () => {
           path="/products/:id"
           element={
             <Product
+              isLoading={isLoading}
               products={products}
               addToCart={addToCart}
               setCart={setCart}
@@ -89,6 +97,7 @@ const App = () => {
           path="/products"
           element={
             <Products
+              isLoading={isLoading}
               addToCart={addToCart}
               setCart={setCart}
               products={products}
