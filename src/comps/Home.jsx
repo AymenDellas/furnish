@@ -142,7 +142,14 @@ const Home = ({ addToCart, db, isLoading }) => {
         </div>
         ;
       </div>
-      <footer className="bg-textColor w-full h-48"></footer>
+      <footer class="bg-zinc-50 text-center dark:bg-neutral-700 lg:text-left">
+        <div class="bg-black/5 p-4 text-center text-surface dark:text-white">
+          © 2024 Copyright :{" "}
+          <a href="/" className="underline">
+            FurniSpace
+          </a>
+        </div>
+      </footer>
     </>
   );
 };

@@ -8,40 +8,57 @@ const Checkout = ({ cart }) => {
       </div>
     );
   }
-  const shppoedItems = cart.map((item) => item.name);
+
+  const total = cart.reduce(
+    (acc, product) => acc + product.price * product.count,
+    0
+  );
   return (
     <>
       <div className="flex flex-col justify-center min-h-screen items-center">
-        <div className="text-center border-textColor/20 border p-8 rounded-lg shadow-2xl">
-          <h1 className="font-bold text-textColor text-3xl mb-8">
+        <div className="text-center border-textColor/20 border p-8 rounded-lg shadow-2xl w-full max-w-lg">
+          {cart.map((item) => {
+            return (
+              <div>
+                <div className="flex justify-between">
+                  <h1 className="my-2">
+                    {item.name} x {item.count}
+                  </h1>
+                  <h1 className="my-2">
+                    Subtotal : {item.price * item.count}$
+                  </h1>
+                </div>
+              </div>
+            );
+          })}
+          <h1 className="font-bold text-3xl my-2">Total: {total}$</h1>
+
+          <hr />
+          <h1 className="font-bold text-textColor text-3xl my-4">
             Client Informations
           </h1>
-          <form action="" className="flex flex-col w-fit ">
-            <div className="my-4">
-              <input
-                className=" p-4 rounded-lg border border-textColor mr-2"
-                type="text"
-                placeholder="First name"
-                required
-              />
-              <input
-                className=" p-4 rounded-lg border border-textColor ml-2"
-                type="text"
-                placeholder="Last name"
-                required
-              />
-            </div>
+          <form action="" className="flex flex-col ">
             <input
-              className="my-4 p-4 rounded-lg border border-textColor w-full"
+              className=" my-4 p-4 rounded-lg border border-textColor mx-2"
+              type="text"
+              placeholder="First name"
+              required
+            />
+            <input
+              className=" my-4 p-4 rounded-lg border border-textColor mx-2"
+              type="text"
+              placeholder="Last name"
+              required
+            />
+
+            <input
+              className="my-4 p-4 rounded-lg border border-textColor mx-2"
               type="email"
               placeholder="Email"
               required
             />
             <select
-              className=" my-4 p-4 rounded-lg border border-textColor w-full"
-              id="country"
-              name="country"
-              class="form-control"
+              className=" my-4 p-4 rounded-lg border border-textColor mx-2"
               required
             >
               <option value="Afghanistan">Afghanistan</option>
@@ -344,14 +361,14 @@ const Checkout = ({ cart }) => {
               <option value="Zimbabwe">Zimbabwe</option>
             </select>
             <input
-              className="my-4 p-4 rounded-lg border border-textColor w-full"
+              className="my-4 p-4 rounded-lg border border-textColor mx-2"
               type="text"
               maxLength={5}
               placeholder="Zip Code"
               required
             />
             <input
-              className="my-4 p-4 rounded-lg border border-textColor w-full"
+              className="my-4 p-4 rounded-lg border border-textColor mx-2"
               type="text"
               placeholder="Phone Number"
             />

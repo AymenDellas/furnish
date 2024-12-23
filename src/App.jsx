@@ -10,6 +10,8 @@ import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { useEffect } from "react";
 import Checkout from "./comps/Checkout";
 
+import NotFound from "./comps/NotFound";
+
 import {
   createBrowserRouter,
   Routes,
@@ -83,35 +85,38 @@ const App = () => {
   }, [cart]);
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="" element={<NavLayout cart={cart} setCart={setCart} />}>
-        <Route
-          path="/"
-          element={<Home addToCart={addToCart} db={db} />}
-        ></Route>
-        <Route
-          path="/products/:id"
-          element={
-            <Product
-              isLoading={isLoading}
-              products={products}
-              addToCart={addToCart}
-              setCart={setCart}
-            />
-          }
-        ></Route>
-        <Route
-          path="/products"
-          element={
-            <Products
-              isLoading={isLoading}
-              addToCart={addToCart}
-              setCart={setCart}
-              products={products}
-            />
-          }
-        ></Route>
-        <Route path="/checkout" element={<Checkout cart={cart} />}></Route>
-      </Route>
+      <>
+        <Route path="*" element={<NotFound />}></Route>
+        <Route path="" element={<NavLayout cart={cart} setCart={setCart} />}>
+          <Route
+            path="/"
+            element={<Home addToCart={addToCart} db={db} />}
+          ></Route>
+          <Route
+            path="/products/:id"
+            element={
+              <Product
+                isLoading={isLoading}
+                products={products}
+                addToCart={addToCart}
+                setCart={setCart}
+              />
+            }
+          ></Route>
+          <Route
+            path="/products"
+            element={
+              <Products
+                isLoading={isLoading}
+                addToCart={addToCart}
+                setCart={setCart}
+                products={products}
+              />
+            }
+          ></Route>
+          <Route path="/checkout" element={<Checkout cart={cart} />}></Route>
+        </Route>
+      </>
     )
   );
   return <RouterProvider router={router} />;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Product = ({ products, addToCart, isLoading }) => {
   const [count, setCount] = useState(1);
@@ -16,11 +17,19 @@ const Product = ({ products, addToCart, isLoading }) => {
   }
   if (!product) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-2xl xl:text-4xl font-bold underline flex ">
-          Product not found!
-        </p>
-        <img src="/alert.svg" alt="" />
+      <div className="flex items-center justify-center min-h-screen flex-col">
+        <div className="flex items-center">
+          <p className="text-2xl xl:text-4xl font-bold underline flex bg-clip-text bg-gradient-to-r  from-themeAccent drop-shadow-2xl to-black text-transparent ">
+            Product not found
+          </p>
+          <img src="/alert.svg" alt="" />
+        </div>
+        <Link
+          to={"/products"}
+          className="my-4 p-4 rounded-lg bg-textColor text-accentHighlight hover:bg-textColor/70 transition-colors"
+        >
+          Go Back
+        </Link>
       </div>
     );
   }
@@ -29,7 +38,7 @@ const Product = ({ products, addToCart, isLoading }) => {
       <ToastContainer />
 
       <div className=" flex items-center min-h-screen justify-center">
-        <div className="flex flex-col xl:flex-row border border-textColor p-8 relative">
+        <div className="flex flex-col xl:flex-row  p-8 relative">
           <div className="xl:w-1/2 shadow-xl group">
             <img
               src={product.imageUrl}
