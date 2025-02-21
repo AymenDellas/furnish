@@ -17,9 +17,9 @@ const Navbar = ({ cart, setCart }) => {
   return (
     <>
       <div className="mb-28">
-        <div className="fixed top-4 left-0 right-0 mx-auto w-[90%] max-w-[1200px] bg-themeAccent/50 p-4 backdrop-blur-2xl rounded-2xl shadow-lg z-50 ">
+        <div className="fixed top-4 left-0 right-0 mx-auto w-[90%] max-w-[1200px] bg-transparent p-4 backdrop-blur-2xl rounded-2xl shadow-lg z-50 ">
           {/* large screens navbar */}
-          <div className=" justify-between mx-4  items-center hidden lg:flex ">
+          <div className=" justify-between mx-4  items-center hidden lg:flex">
             <div className="items-center ">
               <Link to={"/"}>
                 <h1 className="font-extrabold text-3xl font-luxury">
@@ -28,21 +28,21 @@ const Navbar = ({ cart, setCart }) => {
               </Link>
             </div>
             <div className="">
-              <ul className="flex text-md">
-                <Link to={"/"}>
-                  <li className="p-2 mx-2 transition-all hover:bg-white/30 rounded-lg">
+              <ul className="flex text-md ">
+                <Link to={"/"} className="relative">
+                  <li className="p-2 mx-2 transition-all before:content-[''] before:absolute before:w-0 hover:before:w-[50px] before:transition-all before:duration-300 before:ease-out before:h-0.5 before:bg-gradient-to-r before:from-themeAccent before:via-black before:to-themeAccent  before:bottom-0 rounded-lg">
                     Home
                   </li>
                 </Link>
-                <Link to={"/products"}>
-                  <li className="p-2 mx-2 transition-all hover:bg-white/30 rounded-lg">
+                <Link to={"/products"} className="relative w-fit">
+                  <li className="p-2 mx-2 transition-all  rounded-lg before:content-[''] before:absolute before:w-0 hover:before:w-[75px] before:transition-all before:duration-300 before:ease-out before:h-0.5 before:bg-gradient-to-r before:from-themeAccent before:via-black before:to-themeAccent  before:bottom-0">
                     Products
                   </li>
                 </Link>
               </ul>
             </div>
             <div
-              className="p-2 transition-all hover:bg-white/30 rounded-lg cursor-pointer"
+              className="p-2 transition-all hover:bg-textColor/10 rounded-lg cursor-pointer"
               onClick={() => setIsCartopen(true)}
             >
               <img src="/cart.svg" alt="Shopping Cart" />

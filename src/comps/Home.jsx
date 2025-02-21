@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { Link } from "react-router-dom";
+import { db } from "../../firebase";
 
-const Home = ({ addToCart, db, isLoading }) => {
+const Home = ({ addToCart, isLoading }) => {
   const [featured, setFeatured] = useState([]);
 
   useEffect(() => {
@@ -39,12 +41,15 @@ const Home = ({ addToCart, db, isLoading }) => {
                 elevate every corner of your home. From modern minimalism to
                 classic elegance, we have pieces that suit your unique style.
               </p>
-              <button className="font-luxury font-smibold text-xl mt-12 py-4 px-6 rounded-lg bg-buttonBackground text-accentHighlight hover:bg-buttonBackground/40 transition-all">
+              <Link
+                to="/products"
+                className="font-luxury font-smibold text-xl mt-12 py-4 px-6 rounded-lg bg-buttonBackground text-accentHighlight hover:bg-buttonBackground/40 transition-all"
+              >
                 Shop Now
-              </button>
+              </Link>
             </div>
             <div
-              className="sofa w-full lg:w-[1400px] relative z-10  h-96 bg-accentHighlight mt-4 lg:mt-0 bg-cover bg-center py-80"
+              className="sofa w-full  lg:w-[1400px] relative z-10   bg-accentHighlight mt-4 lg:mt-0 bg-cover bg-center py-80"
               style={{ backgroundImage: `url("/armchar.png")` }}
             ></div>
           </div>

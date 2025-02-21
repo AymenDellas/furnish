@@ -37,16 +37,16 @@ const Product = ({ products, addToCart, isLoading }) => {
     <>
       <ToastContainer />
 
-      <div className=" flex items-center min-h-screen justify-center">
-        <div className="flex flex-col xl:flex-row  p-8 relative">
-          <div className="xl:w-1/2 shadow-xl group">
+      <div className=" flex items-center min-h-screen justify-center ">
+        <div className="flex flex-col xl:flex-row  p-8 border border-textColor/40 rounded-3xl ring-4 ring-textColor/40 shadow-2xl m-4">
+          <div className=" shadow-xl group  ">
             <img
               src={product.imageUrl}
               alt=""
               className="rounded-lg group-hover:scale-[1.01] transition-all"
             />
           </div>
-          <div className="xl:ml-12">
+          <div className="xl:ml-12 relative  w-full">
             <h1 className="font-bold text-3xl my-8">{product.name}</h1>
             <p className="text-textColor/40 underline font-bold my-8">
               {product.type}
@@ -69,7 +69,7 @@ const Product = ({ products, addToCart, isLoading }) => {
             </div>
             <div
               onClick={() => addToCart(product, count)}
-              className="flex justify-center text-center  mt-28 p-4 border  cursor-pointer hover:bg-textColor/30 transition-all border-textColor rounded-lg"
+              className="flex justify-center text-center  mt-28 p-4 border   w-full cursor-pointer bg-textColor text-accentHighlight hover:bg-textColor/90 shadow-lg transition-all border-textColor rounded-lg"
             >
               Add to cart
             </div>

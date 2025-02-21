@@ -5,11 +5,10 @@ import Product from "./comps/Product";
 import Products from "./comps/Products";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { useEffect } from "react";
 import Checkout from "./comps/Checkout";
-
+import { db } from "../firebase.js";
 import NotFound from "./comps/NotFound";
 
 import {
@@ -20,18 +19,6 @@ import {
   Route,
 } from "react-router-dom";
 import { toast } from "react-toastify";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAXs_5Xsy4Euc3On-pDO2VvG1ujuKBt8Ew",
-  authDomain: "furnish-5832d.firebaseapp.com",
-  projectId: "furnish-5832d",
-  storageBucket: "furnish-5832d.firebasestorage.app",
-  messagingSenderId: "842011303052",
-  appId: "1:842011303052:web:ae54f35e0f2f79ff81efa9",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 const App = () => {
   const [products, setProducts] = useState([]);

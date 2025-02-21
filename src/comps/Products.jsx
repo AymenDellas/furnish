@@ -38,14 +38,14 @@ const Products = ({ addToCart, products, isLoading }) => {
       ) : (
         <div className="flex flex-col justify-between mx-[10%] ">
           <div className="flex justify-between relative my-12 items-center">
-            <div className="font-bold text-lg">
+            <div className="font-bold text-lg bg-themeAccent rounded-lg p-2">
               Showing {sortedProducts.length} items
             </div>
             <div>
               <select
                 onChange={(e) => setOrder(e.target.value)}
                 value={order}
-                className="w-[70%] float-right p-2 rounded-lg bg-themeAccent text-textColor"
+                className="w-[70%] float-right p-2 rounded-lg bg-themeAccent text-textColor ring-2  drop-shadow-2xl cursor-pointer ring-textColor"
               >
                 <option value="Default sort">Defaul sort</option>
                 <option value="asc">Sort by price (low to high)</option>
@@ -54,7 +54,7 @@ const Products = ({ addToCart, products, isLoading }) => {
               <select
                 onChange={(e) => setFilter(e.target.value)}
                 value={filter}
-                className="w-[70%] float-right p-2 rounded-lg my-4 bg-themeAccent text-textColor"
+                className="w-[70%] float-right p-2 rounded-lg my-4 bg-themeAccent text-textColor ring-2  drop-shadow-2xl cursor-pointer ring-textColor"
               >
                 <option value="Default filter">All</option>
                 <option value="sofas">Sofas</option>
@@ -63,16 +63,16 @@ const Products = ({ addToCart, products, isLoading }) => {
               </select>
             </div>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-4  relative ">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center relative ">
             {sortedProducts.map((product, index) => {
               let count = 1;
               return (
                 <>
-                  <div className="flex flex-col items-center mb-8 justify-center px-8 group">
+                  <div className="flex flex-col items-center  justify-center  group">
                     <div className=" ">
                       <div>
                         <div
-                          className="bg-cover bg-center w-80 h-80 xl:w-[250px] xl:h-[250px] border relative  rounded-sm border-textColor shadow-2xl hover:scale-[1.01] transition-transform"
+                          className="bg-cover bg-center w-80 h-80 xl:w-[300px] xl:h-[300px] border relative  rounded-sm border-textColor shadow-2xl hover:scale-[1.01] transition-transform"
                           style={{
                             backgroundImage: `url(${product.imageUrl})`,
                           }}
@@ -97,12 +97,15 @@ const Products = ({ addToCart, products, isLoading }) => {
                       <p className="my-2 text-textColor/40 underline">
                         {product.type}
                       </p>
-                      <div className="flex justify-between items-center my-2 text-textColor w-80  lg:w-[250px] ">
-                        <Link to={`/products/${product.id}`}>
+                      <Link
+                        to={`/products/${product.id}`}
+                        className="flex justify-between items-center my-2 text-textColor w-80  lg:w-[300px] "
+                      >
+                        <div>
                           <h1 className=" font-bold w-1/2 ">{product.name}</h1>
-                        </Link>
+                        </div>
                         <h3>{product.price}$</h3>
-                      </div>
+                      </Link>
                     </div>
                   </div>
                 </>
