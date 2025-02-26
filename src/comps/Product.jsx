@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const Product = ({ products, addToCart, isLoading }) => {
   const [count, setCount] = useState(1);
   const { id } = useParams();
-  const product = products.find((item) => item.id === id);
 
   if (isLoading) {
     return (
@@ -15,6 +14,7 @@ const Product = ({ products, addToCart, isLoading }) => {
       </div>
     );
   }
+  const product = products.find((item) => String(item.id) === String(id));
   if (!product) {
     return (
       <div className="flex items-center justify-center min-h-screen flex-col">

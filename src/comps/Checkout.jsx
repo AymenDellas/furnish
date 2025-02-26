@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { collection, addDoc, runTransaction, doc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { toast } from "react-toastify";
 import { MoonLoader } from "react-spinners";
+import supabase from "../../supabase";
+import { ToastContainer } from "react-toastify";
 const Checkout = ({ cart }) => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -24,7 +25,30 @@ const Checkout = ({ cart }) => {
   );
   const handleFormData = async (e) => {
     e.preventDefault();
-    const data = {
+    setIsLoading(true);
+
+    for (const item of cart) {
+      const { data: product, error } = await supabase
+        .from("products")
+        .select("stock")
+        .eq("id", item.id)
+        .single();
+
+      if (error || !product) {
+        console.error(`Product not found in database: ${item.name}`);
+        toast.error(`Product not found: ${item.name}`);
+        setIsLoading(false);
+        return;
+      }
+
+      if (product.stock < item.count) {
+        toast.error(`Not enough stock for ${item.name}`);
+        setIsLoading(false);
+        return;
+      }
+    }
+
+    const formData = {
       email,
       firstName,
       lastName,
@@ -32,35 +56,45 @@ const Checkout = ({ cart }) => {
       total,
       cart,
       status: "pending",
-      date: new Date().toLocaleDateString(),
     };
 
-    try {
-      setIsLoading(true);
-      await addDoc(collection(db, "orders"), data);
-      await runTransaction(db, async (transaction) => {
-        for (const item of cart) {
-          const productRef = doc(db, "products", item.id);
-          const productDoc = await transaction.get(productRef);
-          const currentStock = productDoc.data().stock;
-          if (currentStock < item.count) {
-            throw new Error(`Not enough stock for ${item.name}`);
-          }
-          transaction.update(productRef, {
-            stock: currentStock - item.count,
-          });
-        }
-      });
-      cart.length = 1;
+    const { error: orderError } = await supabase
+      .from("orders")
+      .insert(formData);
+    if (orderError) {
+      toast.error("Error adding the order");
+      console.error(orderError);
       setIsLoading(false);
-
-      console.log("Order placed successfully and stock updated.");
-    } catch (error) {
-      console.log("Error processing order:", error);
+      return;
     }
+
+    // Update stock correctly inside the loop
+    for (const item of cart) {
+      const { data: product } = await supabase
+        .from("products")
+        .select("stock")
+        .eq("id", item.id)
+        .single();
+
+      if (product) {
+        const { error: stockError } = await supabase
+          .from("products")
+          .update({ stock: product.stock - item.count })
+          .eq("id", item.id);
+
+        if (stockError) {
+          console.log("Error updating stock for", item.name, stockError);
+        }
+      }
+    }
+
+    toast.success("Order placed successfully!");
+    setIsLoading(false); // Stop loading
   };
+
   return (
     <>
+      <ToastContainer />
       <div className="flex flex-col justify-center min-h-screen items-center m-4">
         <div className="text-center border-textColor/20 border p-8 rounded-lg shadow-2xl w-full max-w-lg">
           {cart.map((item) => {

@@ -19,6 +19,7 @@ import {
   Route,
 } from "react-router-dom";
 import { toast } from "react-toastify";
+import supabase from "../supabase.js";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -30,24 +31,17 @@ const App = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      try {
-        const colRef = collection(db, "products");
-        const response = await getDocs(colRef);
-        const productsData = response.docs.map((doc) => ({
-          id: doc.id, // Include the document ID
-          ...doc.data(),
-        }));
-        setProducts(productsData);
+      const { data, error } = await supabase.from("products").select("*");
+      if (error) console.error("Error fetching products : ", error);
+      else if (data) {
+        setProducts(data);
         setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching products:", error);
       }
     };
 
     fetchProducts();
   }, []);
 
-  const { id } = useParams();
   const addToCart = (product, count) => {
     try {
       let updatedCart;
