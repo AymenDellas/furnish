@@ -104,14 +104,11 @@ const Home = ({ addToCart, isLoading }) => {
 
                       <div className="flex items-center">
                         <div className="flex space-x-1">
-                          <img src="/src/assets/star.svg" alt="Star" />
-                          <img src="/src/assets/star.svg" alt="Star" />
-                          <img src="/src/assets/star.svg" alt="Star" />
-                          <img src="/src/assets/star.svg" alt="Star" />
-                          <img
-                            src="/src/assets/half-star.svg"
-                            alt="Half Star"
-                          />
+                          <img src="/star.svg" alt="Star" />
+                          <img src="/star.svg" alt="Star" />
+                          <img src="/star.svg" alt="Star" />
+                          <img src="/star.svg" alt="Star" />
+                          <img src="/half-star.svg" alt="Half Star" />
                         </div>
                         <div className="ml-4 text-textColor">
                           <span>{feature.rating}</span>

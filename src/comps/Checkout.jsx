@@ -4,13 +4,14 @@ import { toast } from "react-toastify";
 import { MoonLoader } from "react-spinners";
 import supabase from "../../supabase";
 import { ToastContainer } from "react-toastify";
-const Checkout = ({ cart }) => {
+import { useNavigate } from "react-router-dom";
+const Checkout = ({ cart, setCart }) => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const navigate = useNavigate();
   if (cart.length === 0) {
     return (
       <div>
@@ -89,6 +90,10 @@ const Checkout = ({ cart }) => {
     }
 
     toast.success("Order placed successfully!");
+    setTimeout(() => {
+      navigate("/");
+      setCart([]);
+    }, 3000);
     setIsLoading(false); // Stop loading
   };
 

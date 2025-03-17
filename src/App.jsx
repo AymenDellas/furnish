@@ -95,7 +95,10 @@ const App = () => {
               />
             }
           ></Route>
-          <Route path="/checkout" element={<Checkout cart={cart} />}></Route>
+          <Route
+            path="/checkout"
+            element={<Checkout cart={cart} setCart={setCart} />}
+          ></Route>
         </Route>
       </>
     )
