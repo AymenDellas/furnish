@@ -71,7 +71,7 @@ const App = () => {
         <Route path="" element={<NavLayout cart={cart} setCart={setCart} />}>
           <Route
             path="/"
-            element={<Home addToCart={addToCart} db={db} />}
+            element={<Home addToCart={addToCart} products={products} db={db} />}
           ></Route>
           <Route
             path="/products/:id"
