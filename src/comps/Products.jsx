@@ -68,11 +68,11 @@ const Products = ({ addToCart, products, isLoading }) => {
               let count = 1;
               return (
                 <>
-                  <div className="flex flex-col items-center  justify-center  group">
+                  <div className="flex flex-col items-center  justify-center bg-white p-2 rounded-lg  group">
                     <div className=" ">
                       <div>
                         <div
-                          className="bg-cover bg-center w-80 h-80 xl:w-[300px] xl:h-[300px] border relative  rounded-sm border-textColor shadow-2xl hover:scale-[1.01] transition-transform"
+                          className="bg-cover bg-center w-80 h-80 xl:w-[300px] xl:h-[300px] border relative  rounded-sm border-textColor shadow-lg hover:scale-[1.01] transition-transform"
                           style={{
                             backgroundImage: `url(${product.imageUrl})`,
                           }}
